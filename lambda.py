@@ -1,17 +1,14 @@
 import logging
 import json
-from customEncoder import CustomEncoder
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 getMethod = "GET"
-postMethod = "POST"
-
 healthPath = "/health"
 
 #main handler
-def lambda_handler(event, context):
+def lambda_handler(event):
     logger.info(event)
     httpMethod = event['httpMethod']
     path = event['path']
@@ -19,12 +16,12 @@ def lambda_handler(event, context):
     if httpMethod == getMethod and path == healthPath:
         response = buildResponse(200)
     else:
-        response = buildResponse(404, 'Not Found')
+        response = buildResponse(404)
     
     return response
 
 # Response builder.
-def buildResponse(statusCode, body = None):
+def buildResponse(statusCode):
     response = {
         'statusCode': statusCode,
         'headers': {
@@ -32,6 +29,4 @@ def buildResponse(statusCode, body = None):
             'Access-Control-Allow-Origin': '*'
         }
     }
-    if body is not None:
-        response['body'] = json.dumps(body, cls = CustomEncoder)
     return response
