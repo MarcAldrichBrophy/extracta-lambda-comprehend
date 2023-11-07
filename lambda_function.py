@@ -28,7 +28,8 @@ def buildResponse(statusCode, body = None):
         'headers': {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
-        }
+        },
+        'body': "Hello! Just health check"
     }
     if body is not None:
         response['body'] = json.dumps(body, cls = CustomEncoder)
