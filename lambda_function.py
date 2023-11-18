@@ -25,6 +25,7 @@ bucket_name = 'project-1-datalake'
 def lambda_handler(event, context):
     logger.info(event)
     httpMethod = event['httpMethod']
+    text = event['Text']
     path = event['path']
 
     if httpMethod == getMethod and path == healthPath:
